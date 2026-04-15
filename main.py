@@ -56,7 +56,7 @@ flags.DEFINE_string('best_of_n_eval_values', '0',   'separated by commas. 0 is t
 def main(_):
     # Set up logger.
     exp_name = get_exp_name(FLAGS.seed)
-    run = setup_wandb(project='dqc', group=FLAGS.run_group, name=exp_name, tags=FLAGS.tags.split(","), mode="offline")
+    run = setup_wandb(project='dqc', entity='jnzhao3', group=FLAGS.run_group, name=exp_name, tags=FLAGS.tags.split(",")) # , mode="offline"
 
     FLAGS.save_dir = os.path.join(FLAGS.save_dir, wandb.run.project, FLAGS.run_group, exp_name)
     os.makedirs(FLAGS.save_dir, exist_ok=True)
