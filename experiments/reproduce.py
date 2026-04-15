@@ -6,18 +6,18 @@ from generate import SbatchGenerator
 from typing import NamedTuple
 
 run_group = "dqc-reproduce"
-dataset_root = ...  # TODO: fill in the root directory of your dataset
+dataset_root = "../../scratch/data/" # ...  # TODO: fill in the root directory of your dataset
 
 num_jobs_per_gpu = 1
 gpu_limit = 16
 
 domains = [
-    "cube-triple-play-oraclerep-v0",
-    "cube-quadruple-play-oraclerep-v0", 
-    "cube-octuple-play-oraclerep-v0", 
+    # "cube-triple-play-oraclerep-v0",
+    # "cube-quadruple-play-oraclerep-v0", 
+    # "cube-octuple-play-oraclerep-v0", 
     "humanoidmaze-giant-navigate-oraclerep-v0",
-    "puzzle-4x5-play-oraclerep-v0", 
-    "puzzle-4x6-play-oraclerep-v0", 
+    # "puzzle-4x5-play-oraclerep-v0", 
+    # "puzzle-4x6-play-oraclerep-v0", 
 ]
 
 sizes = {
@@ -126,7 +126,7 @@ for debug in [True, False]:
     else:
         gen.add_common_prefix({"run_group": run_group, "offline_steps": 1000000, "eval_interval": 250000})
 
-    for seed in [100001, 200002, 300003, 400004, 500005, 600006, 700007, 800008, 900009, 1000010]:  # 20002-60006
+    for seed in [100001, 200002,]: # 300003, 400004, 500005, 600006, 700007, 800008, 900009, 1000010]:  # 20002-60006
         for domain in domains:
 
             # environment-specific parameters
@@ -149,11 +149,11 @@ for debug in [True, False]:
                     extra_kwargs["dataset_dir"] = os.path.join(dataset_root, "cube-octuple-play-{size}-v0")
 
             # (h, ha) configurations
-            for backup_horizon in [1, 5, 25]:
-                for policy_chunk_size in [1, 5, 25]:
+            for backup_horizon in [25]: # 1, 5, 
+                for policy_chunk_size in [1]: # , 5, 25
                     if policy_chunk_size > backup_horizon: continue
                     
-                    for critic_chunking in [True, False]:
+                    for critic_chunking in [False]: # True
                         if policy_chunk_size == backup_horizon and critic_chunking: continue # can't dqc if they are the same chunk size
                         
                         kwargs = {
