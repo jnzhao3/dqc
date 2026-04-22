@@ -79,6 +79,7 @@ def main(_):
         datasets = datasets[:FLAGS.num_datasets]
     
     dataset_idx = 0
+    import ipdb; ipdb.set_trace()
     env, train_dataset, val_dataset = make_ogbench_env_and_datasets(FLAGS.env_name, dataset_path=datasets[0], compact_dataset=True, add_info=True)
     eval_env = make_ogbench_env_and_datasets(FLAGS.env_name, dataset_path=datasets[0], compact_dataset=True, env_only=True)
     if FLAGS.dataset_size is not None:
